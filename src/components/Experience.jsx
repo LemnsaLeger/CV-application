@@ -1,51 +1,35 @@
 import { useState } from "react";
 
-function Experience() {
-  const [name, setName] = useState("");
-  const [companyRole, setRole] = useState("");
-  const [responsibilities, setResponsibilities] = useState([]);
+function Experience({data, setData}) {
+  const { name, companyRole, dates, responsibilities } = data;
+//   const [name, setName] = useState("");
+//   const [companyRole, setRole] = useState("");
+//   const [responsibilities, setResponsibilities] = useState([]);
   const [currentResponsibilty, setCurrentResponsibility] = useState("");
-  const [dates, setDates] = useState([]);
+//   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
 
   const [isEdit, setIsEdit] = useState(false); // for re-rendering
 
-  function handleRole(value) {
-    if(value !== ''){
-        setRole(value);
+    function handleChange(field, value) {
+        if(value !== '') {
+            setData({...data, [field]: value});
+        }
     }
-  }
-
-  function handleName(value) {
-    if(value !== ''){
-        setName(value);
-    }
-  }
-
-  function handleCurrentResponsibilty(value) {
-    if(value !== '') {
-        setCurrentResponsibility(value);
-    }
-  }
+ 
 
   function addResponsibility(e) {
     e.preventDefault();
     if (currentResponsibilty.trim() !== "") {
-      setResponsibilities([...responsibilities, currentResponsibilty]);
+      setData({...data, responsibilities:[...responsibilities, currentResponsibilty]});
       setCurrentResponsibility("");
-    }
-  }
-
-  function handleCurrentDate(value) {
-    if(value !== '') {
-        setCurrentDate(value);
     }
   }
 
   function addDate(e) {
     e.preventDefault();
     if (currentDate.trim() !== "") {
-      setDates([...dates, currentDate]);
+      setData({...data, dates:[...dates, currentDate]});
       setCurrentDate("");
     }
   }
@@ -53,10 +37,9 @@ function Experience() {
   function toggleEditMode(e) {
     e.preventDefault();
     setIsEdit(!isEdit);
-    if(isEdit) {
-        setDates([]);
-        setResponsibilities([]);
-    }
+   if(isEdit) {
+     dates.forEach((d, index) => dates.splice(index, 1)); // remove all the dates
+   }
   }
 
   return (
@@ -69,7 +52,7 @@ function Experience() {
           <input
             type="text"
             value={name}
-            onChange={(e) => handleName(e.target.value)}
+            onChange={(e) => handleChange("name", e.target.value)}
           />
         ) : (
           <p>{name}</p>
@@ -82,7 +65,7 @@ function Experience() {
           <input
             type="text"
             value={companyRole}
-            onChange={(e) => handleRole(e.target.value)}
+            onChange={(e) => handleChange("companyRole", e.target.value)}
           />
         ) : (
           <p>{companyRole}</p>
@@ -96,7 +79,7 @@ function Experience() {
             <input
               type="text"
               value={currentResponsibilty}
-              onChange={(e) => handleCurrentResponsibilty(e.target.value)}
+              onChange={(e) => setCurrentResponsibility(e.target.value)}
             />
             <button onClick={addResponsibility}>Add</button>
           </>
@@ -115,7 +98,7 @@ function Experience() {
             <input
               type="date"
               value={currentDate}
-              onChange={(e) => handleCurrentDate(e.target.value)}
+              onChange={(e) => setCurrentDate(e.target.value)}
             />
             <button onClick={addDate}>Add</button>
           </>

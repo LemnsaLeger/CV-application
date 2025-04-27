@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-function GeneralInfo() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+function GeneralInfo({data, setData}) {
+  const {name, email, phone } = data;
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [phone, setPhone] = useState("");
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -13,23 +14,12 @@ function GeneralInfo() {
     setIsEdit(!isEdit);
   }
 
-  function handleName(value) {
-    if (value !== "") {
-      setName(value);
-    }
+// function to handle all fields
+function handleChange(field, value) {
+  if(value !== '') {
+    setData({...data, [field]: value})
   }
-
-  function handleEmail(value) {
-    if (value !== "") {
-      setEmail(value);
-    }
-  }
-
-  function handlePhone(value) {
-    if (value !== "") {
-      setPhone(value);
-    }
-  }
+}
 
   return (
     <>
@@ -41,7 +31,7 @@ function GeneralInfo() {
             <input
               type="text"
               value={name}
-              onChange={(e) => handleName(e.target.value)}
+              onChange={(e) => handleChange("name", e.target.value)}
             />
           ) : (
             <p>{name}</p>
@@ -54,7 +44,7 @@ function GeneralInfo() {
             <input
               type="email"
               value={email}
-              onChange={(e) => handleEmail(e.target.value)}
+              onChange={(e) => handleChange("email", e.target.value)}
             />
           ) : (
             <p>{email}</p>
@@ -67,7 +57,7 @@ function GeneralInfo() {
             <input
               type="tel"
               value={phone}
-              onChange={(e) => handlePhone(e.target.value)}
+              onChange={(e) => handleChange("phone", e.target.value)}
             />
           ) : (
             <p>{phone}</p>

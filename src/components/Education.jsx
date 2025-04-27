@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-function Education() {
-  const [schoolName, setSchoolName] = useState("");
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+function Education({data, setData}) {
+  const {schoolName, title, date} = data;
+  // const [schoolName, setSchoolName] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [date, setDate] = useState("");
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -13,23 +14,12 @@ function editMode(e) {
     setIsEdit(!isEdit);
 }
 
-  function handleSchoolName(value) {
-    if(value !== ''){
-        setSchoolName(value);
-    }
+// function to handle each input field
+function handleChange(field, value) {
+  if(value !== '') {
+    setData({...data, [field]: value});
   }
-
-  function handleTitle(value) {
-   if(value !== ''){
-     setTitle(value);
-   }
-  }
-
-  function handleDate(value) {
-    if(value !== ''){
-        setDate(value);
-    }
-  }
+}
 
   return (
     <>
@@ -41,7 +31,7 @@ function editMode(e) {
             <input
               type="text"
               value={schoolName}
-              onChange={(e) => handleSchoolName(e.target.value)}
+              onChange={(e) => handleChange("schoolName", e.target.value)}
             />
           ) : (
             <p>{schoolName}</p>
@@ -54,7 +44,7 @@ function editMode(e) {
             <input
               type="text"
               value={title}
-              onChange={(e) => handleTitle(e.target.value)}
+              onChange={(e) => handleChange("title", e.target.value)}
             />
           ) : (
             <p>{title}</p>
@@ -67,7 +57,7 @@ function editMode(e) {
             <input
               type="date"
               value={date}
-              onChange={(e) => handleDate(e.target.value)}
+              onChange={(e) => handleChange("date" ,e.target.value)}
             />
           ) : (
             <p>{date}</p>
