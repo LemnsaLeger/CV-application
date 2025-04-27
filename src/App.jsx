@@ -7,18 +7,18 @@ import Experience from "./components/Experience.jsx";
 
 function App() {
   const [GeneralInfos, setGeneralInfo] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name: "my company",
+    email: "email@gmail.cos",
+    phone: "123456789",
   });
   const [Educations, setEducation] = useState({
-    schoolName: "",
-    title: "",
-    date: "",
+    schoolName: "School name",
+    title: "tilte",
+    date: "02-34-56",
   });
   const [Experiences, setExperiences] = useState({
-    companyRole: "",
-    companyName: "",
+    companyRole: "wow",
+    companyName: "great",
     responsibilities: [],
     dates: [],
   });
